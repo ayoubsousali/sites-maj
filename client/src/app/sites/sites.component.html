@@ -1,0 +1,89 @@
+
+
+
+<div class="container">
+
+  <div class="row">
+    <form #editForm="ngForm" (ngSubmit)="editSite(editForm)" *ngIf="toggleForm">
+        <div class="form-group col-md-6">
+          <label>nom</label>
+          <input type="text" class="form-control" [ngModel]="selectedSite.nom" name="nom" required><br>
+
+          <label>description</label>
+          <textarea class="form-control" [ngModel]="selectedSite.description" name="description" required></textarea><br>
+
+          <label>latitude</label>
+          <input type="text" class="form-control" [ngModel]="selectedSite.latitude" name="latitude" required><br>
+
+          <label>longitude</label>
+          <input type="text" class="form-control" [ngModel]="selectedSite.longitude" name="longitude" required><br>
+
+          <label>photo</label>
+          <input type="text" class="form-control" [ngModel]="selectedSite.photo" name="photo" required placeholder="url"><br>
+          <button type="submit" class="btn btn-warning" [disabled]=editForm.invalid>Modifier</button>
+
+        </div>
+      </form>
+
+      <form (submit)="addSite()" *ngIf="!toggleForm">
+          <div class="form-group col-md-6">
+            <label>nom</label>
+            <input type="text" class="form-control" [(ngModel)]="nom" name="nom" required><br>
+
+            <label>description</label>
+            <textarea class="form-control" [(ngModel)]="description" name="description" required></textarea><br>
+
+            <label>latitude</label>
+            <input type="text" class="form-control" [(ngModel)]="latitude" name="latitude" required><br>
+
+            <label>longitude</label>
+            <input type="text" class="form-control" [(ngModel)]="longitude" name="longitude" required><br>
+
+            <label>photo</label>
+            <input type="text" class="form-control" [(ngModel)]="photo" name="photo" required placeholder="url"><br>
+            <button type="submit" class="btn btn-success">Ajouter</button>
+
+          </div>
+        </form>
+  </div>
+
+
+<div class="row">
+
+
+    <h2 class="page-header">liste sites</h2>
+
+
+      <table class="table-bordered table">
+      <thead>
+        <tr>
+          <th>nom</th>
+          <th>description</th>
+          <th>latitude</th>
+          <th>longitude</th>
+          <th>photo</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor = "let site of sites">
+          <td>{{ site.nom }}</td>
+          <td>{{ site.description }}</td>
+          <td>{{ site.latitude }}</td>
+          <td>{{ site.longitude }}</td>
+          <td><img width="300" height="200" [src]="'data:image/jpg;base64,'+site.photo"></td>
+
+          <td>
+            <input type="button" (click)="deleteSite(site._id)" value="supprimer" class="btn btn-danger">
+            <input type="button" (click)="showEditForm(site)" [disabled]="toggleForm" value="modifier" class="btn btn-primary">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+
+</div>
+
+
+
+</div>
