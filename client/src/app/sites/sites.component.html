@@ -4,7 +4,7 @@
 <div class="container">
 
   <div class="row">
-    <form #editForm="ngForm" (ngSubmit)="editSite(editForm)" *ngIf="toggleForm">
+    <form #editForm="ngForm" (ngSubmit)="editSite(editForm)" *ngIf="toggleForm" enctype="multipart/form-data">
         <div class="form-group col-md-6">
           <label>nom</label>
           <input type="text" class="form-control" [ngModel]="selectedSite.nom" name="nom" required><br>
@@ -18,14 +18,18 @@
           <label>longitude</label>
           <input type="text" class="form-control" [ngModel]="selectedSite.longitude" name="longitude" required><br>
 
+          <label for="filePicker">Choisir un image</label><br>
+          <input type="file" id="filePicker" (change)="handleFileSelect($event)">
+
           <label>photo</label>
-          <input type="text" class="form-control" [ngModel]="selectedSite.photo" name="photo" required placeholder="url"><br>
+          <textarea class="form-control" [ngModel]="selectedSite.photo" name="photo" required></textarea><br>
+
           <button type="submit" class="btn btn-warning" [disabled]=editForm.invalid>Modifier</button>
 
         </div>
       </form>
 
-      <form (submit)="addSite()" *ngIf="!toggleForm">
+      <form (submit)="addSite()" *ngIf="!toggleForm" enctype="multipart/form-data">
           <div class="form-group col-md-6">
             <label>nom</label>
             <input type="text" class="form-control" [(ngModel)]="nom" name="nom" required><br>
@@ -39,8 +43,11 @@
             <label>longitude</label>
             <input type="text" class="form-control" [(ngModel)]="longitude" name="longitude" required><br>
 
+            <label for="filePicker">Choisir un image</label><br>
+            <input type="file" id="filePicker" (change)="handleFileSelect($event)">
+
             <label>photo</label>
-            <input type="text" class="form-control" [(ngModel)]="photo" name="photo" required placeholder="url"><br>
+            <textarea class="form-control" [(ngModel)]="photo" name="photo" required></textarea><br>
             <button type="submit" class="btn btn-success">Ajouter</button>
 
           </div>
@@ -83,7 +90,6 @@
 
 
 </div>
-
 
 
 </div>

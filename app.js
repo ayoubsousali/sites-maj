@@ -30,8 +30,8 @@ const port = 3000;
 app.use(cors());
 
 //bodyparser
-app.use(bodyparser.json());
-
+app.use(bodyparser.json({limit: '50mb'})); // augmenter limit du payload
+app.use(bodyparser.urlencoded({limit: '50mb', extended: true}));
 
 // static
 app.use(express.static(path.join(__dirname, 'public')));

@@ -14,13 +14,15 @@ export class SitesComponent implements OnInit {
   site: Site;
   selectedSite: Site;
 
+
   toggleForm: boolean = false;
 
   nom: string;
   description: string;
   latitude: string;
   longitude: string;
-  photo: string;
+  photo: String;
+
 
   constructor(private siteService: SiteService ) { }
 
@@ -92,6 +94,27 @@ export class SitesComponent implements OnInit {
 
   ngOnInit() {
     this.getSites();
+  }
+
+
+  // convertir l'image a base64
+  handleFileSelect(evt) {
+    const files = evt.target.files;
+    const file = files[0];
+
+    if (files && file) {
+      const reader = new FileReader();
+
+      reader.onload = this._handleReaderLoaded.bind(this);
+
+      reader.readAsBinaryString(file);
+    }
+  }
+
+  _handleReaderLoaded(readerEvt) {
+    const binaryString = readerEvt.target.result;
+    this.photo = btoa(binaryString);
+    this.selectedSite.photo = btoa(binaryString);
   }
 
 }
